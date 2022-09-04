@@ -114,4 +114,4 @@ client <-> Spring Cloud Gateway <-> MicroService
 
 방법1) Java
 
-방법2) .yml
+방법2) Property(.yml)
