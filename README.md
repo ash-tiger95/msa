@@ -116,4 +116,14 @@ client <-> Spring Cloud Gateway <-> MicroService
 
 방법2) Property(.yml)
 
-종류) Filter, Custom Filter, Global Filter
+종류) Filter,
+
+- Custom Filter(
+
+  - Pre/Post Filter
+  - 설정할 라우트마다 지정해야 한다.
+
+- Global Filter
+  - 라우트 정보가 달라도 공통적으로 실행되는 필터
+  - 한번만 설정해주면 된다.
+  - 필터 중 가장 처음 실행되고 가장 마지막에 실행된다.

@@ -14,12 +14,18 @@ spring:
     name: apigateway-service
   cloud:
     gateway:
+      default-filters: # Global Filter는 한번에 선언
+        - name: GlobalFilter # 글로벌 필터 클래스 입력
+          args:
+            baseMessage: Spring Cloud Gateway Global Filter Print Success
+            preLogger: true
+            postLogger: true
       routes:
         - id: first-service
           uri: http://localhost:8081/ # 이동될 주소
           predicates: # 조건절
             - Path=/first-service/** # 사용자가 입력한 조건 (http://localhost:8000/first-service/welcome)
-          filters:
+          filters: # Filter/Custom Filter는 라우터 마다 등록 필요
             - AddRequestHeader=first-request, first-request-header2
             - AddResponseHeader=first-response, first-response-header2
             - CustomFilter # 자바로 구현한 CustomFilter 사용
