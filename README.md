@@ -4,13 +4,14 @@ Study MSA used SpringBoot
 
 # 프로젝트 구성
 
-|      서비스       |     역할      |    설명     |
-| :---------------: | :-----------: | :---------: |
-| discovery-service | Eureka Server |             |
-|   user-service    | Eureka Client |             |
-|   zuul-service    | Netflix-Zuul  | API Gateway |
-|   first-service   | Netflix Zuul  |             |
-|  second-service   | Netflix Zuul  |             |
+|       서비스       |                역할                |                      설명                      |
+| :----------------: | :--------------------------------: | :--------------------------------------------: |
+| discovery-service  | Spring Cloud Netflix Eureka Server |                                                |
+|    user-service    | Spring Cloud Netflix Eureka Client |                                                |
+|    zuul-service    |        Netflix-Zuul (동기)         |              API Gateway, Filter               |
+|   first-service    |            Netflix Zuul            |                                                |
+|   second-service   |            Netflix Zuul            |                                                |
+| apigateway-service |   Spring Cloud Gateway (비동기)    | zuul-service와 같은 역할 (API Gateway, Filter) |
 
 # 프로젝트 에러
 
@@ -93,3 +94,16 @@ dependency: Eureks Server
 4. Netflix Zuul (최근에 잘 안 쓰임, Spring Cloud Ribbon은 Maintenance(새로운 기능 추가 x) 상태)
 
    - api gateway 역할
+
+# Netflix Cloud Gateway
+
+역할: Zuul 대신 사용 (비동기 o)
+
+apigateway-service를 실행하면 Netty라는 비동기 내장서버가 작동한다. (이전에는 톰캣)
+
+Zuul과 다른점
+
+|                   요청URL                   |     first-service Controller      | zuul-service | apigateway-service |
+| :-----------------------------------------: | :-------------------------------: | :----------: | :----------------: |
+| http://localhost:8081/first-service/welcome |       @RequestMapping("/")        |      o       |         x          |
+| http://localhost:8081/first-service/welcome | @RequestMapping("/first-service") |      x       |         o          |
