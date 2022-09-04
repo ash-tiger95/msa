@@ -115,3 +115,5 @@ client <-> Spring Cloud Gateway <-> MicroService
 방법1) Java
 
 방법2) Property(.yml)
+
+종류) Filter, Custom Filter, Global Filter
