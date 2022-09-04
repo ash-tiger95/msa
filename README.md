@@ -95,7 +95,7 @@ dependency: Eureks Server
 
    - api gateway 역할
 
-# Netflix Cloud Gateway
+# Spring Cloud Gateway
 
 역할: Zuul 대신 사용 (비동기 o)
 
@@ -107,3 +107,11 @@ Zuul과 다른점
 | :-----------------------------------------: | :-------------------------------: | :----------: | :----------------: |
 | http://localhost:8081/first-service/welcome |       @RequestMapping("/")        |      o       |         x          |
 | http://localhost:8081/first-service/welcome | @RequestMapping("/first-service") |      x       |         o          |
+
+# Spring CLoud Gateway - Filter
+
+client <-> Spring Cloud Gateway <-> MicroService
+
+방법1) Java
+
+방법2) .yml
