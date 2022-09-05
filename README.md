@@ -108,7 +108,7 @@ Zuul과 다른점
 | http://localhost:8081/first-service/welcome |       @RequestMapping("/")        |      o       |         x          |
 | http://localhost:8081/first-service/welcome | @RequestMapping("/first-service") |      x       |         o          |
 
-# Spring CLoud Gateway - Filter
+# Spring Cloud Gateway - Filter
 
 client <-> Spring Cloud Gateway <-> MicroService
 
@@ -127,3 +127,45 @@ client <-> Spring Cloud Gateway <-> MicroService
   - 라우트 정보가 달라도 공통적으로 실행되는 필터
   - 한번만 설정해주면 된다.
   - 필터 중 가장 처음 실행되고 가장 마지막에 실행된다.
+
+---
+
+---
+
+---
+
+# PJT Service 정리
+
+|      구성요소      | 설명                                           |
+| :----------------: | :--------------------------------------------- |
+|   Git Repository   | 마이크로서비스 소스 관리 및 프로파일 관리      |
+|   Config Server    | Git 저장소에 등록된 프로파일 정보 및 설정 정보 |
+|   Eureka Server    | 마이크로서비스 등록 및 검색                    |
+| API Gateway Server | 마이크로서비스 부하 분산 및 서비스 라우팅      |
+|   Microservices    | 회원 MS, 주문 MS, 상품(카데고리)MS             |
+|   Queuing System   | 마이크로서비스 간 메시지 발행 및 구독          |
+
+# 애플리케이션 APIs
+
+| 마이크로서비스  | Restful API                                                | HTTP Method |
+| :-------------: | :--------------------------------------------------------- | :---------: |
+| Catalog Service | /catalog-service/catalogs: 상품 목록 제공                  |     GET     |
+|  User Service   | /user-service/users: 사용자 정보 등록                      |    POST     |
+|  User Service   | /user-service/users: 전체 사용자 조회                      |     GET     |
+|  User Service   | /user-service/users/{user_id}: 사용자 정보, 주문 내역 조회 |     GET     |
+|  Order Service  | /order-service/users/{user_id}/orders: 주문 등록           |    POST     |
+|  Order Service  | /order-service/users/{user_id}/orders: 주문 조회           |     GET     |
+
+## Configuration 정보(.yml args) 불러오는 방법
+
+예제) .yml
+
+> greeting: message: Welcome yml
+
+방법1) Environment 사용
+
+- env.getProperty("greeting.message")
+
+방법2) @Value 사용
+
+- @Value("${greeting.message}")
