@@ -4,6 +4,12 @@ server:
 spring:
   application:
     name: user-service
+  h2:
+    console:
+      enabled: true
+      settings:
+        web-allow-others: true # 외부 접속 허용
+      path: jdbc:h2:~/H2/msa/testdb # h2 console 위치
 
 eureka:
   instance:
