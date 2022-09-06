@@ -180,10 +180,7 @@ client <-> Spring Cloud Gateway <-> MicroService
 | 사용자 정보, 주문 내역 조회 | /user-service/users/{user_id}    | /users/{user_id}           |     GET     |
 | 작동 상태 확인              | /user-service/users/health_check | /health_check              |     GET     |
 | 환영 메시지                 | /user-service/users/welcome      | /welcome                   |     GET     |
-
-## Spring Security
-
-역할: Authentication(인증) + Authorization(권한)
+| 로그인                      | /user-service/login              | /login                     |    POST     |
 
 # Cataologs-Service
 
@@ -192,6 +189,16 @@ client <-> Spring Cloud Gateway <-> MicroService
 | 상품 목록 조회           | Catalogs Microservice    | /catalog-service/catalogs       |     GET     |
 | 사용자 별 상품 주문      | Order Microservice       | /order-service/{user_id}/orders |    POST     |
 | 사용자 별 주문 내역 조회 | Orders Microservice      | /order-service/{user_id}/orders |     GET     |
+
+## Spring Security
+
+역할: Authentication(인증) + Authorization(권한)
+
+---
+
+---
+
+---
 
 ## Tip
 
