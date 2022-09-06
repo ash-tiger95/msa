@@ -124,9 +124,24 @@ client <-> Spring Cloud Gateway <-> MicroService
   - 설정할 라우트마다 지정해야 한다.
 
 - Global Filter
+
   - 라우트 정보가 달라도 공통적으로 실행되는 필터
   - 한번만 설정해주면 된다.
   - 필터 중 가장 처음 실행되고 가장 마지막에 실행된다.
+
+# Configuration 정보(.yml args) 불러오는 방법
+
+예제) .yml
+
+> greeting: message: Welcome yml
+
+방법1) Environment 사용
+
+- env.getProperty("greeting.message")
+
+방법2) @Value 사용
+
+- @Value("${greeting.message}")
 
 ---
 
@@ -156,16 +171,16 @@ client <-> Spring Cloud Gateway <-> MicroService
 |  Order Service  | /order-service/users/{user_id}/orders: 주문 등록           |    POST     |
 |  Order Service  | /order-service/users/{user_id}/orders: 주문 조회           |     GET     |
 
-## Configuration 정보(.yml args) 불러오는 방법
+# User-Service
 
-예제) .yml
+| 기능                        | URI(API Gateway 사용 시)         | URI(API Gateway 미사용 시) | HTTP Method |
+| :-------------------------- | :------------------------------- | :------------------------- | :---------: |
+| 사용자 정보 등록            | /user-service                    | /users                     |    POST     |
+| 전체 사용자 조회            | /user-service/users              | /users                     |     GET     |
+| 사용자 정보, 주문 내역 조회 | /user-service/users/{user_id}    | /users/{user_id}           |     GET     |
+| 작동 상태 확인              | /user-service/users/health_check | /health_check              |     GET     |
+| 환영 메시지                 | /user-service/users/welcome      | /welcome                   |     GET     |
 
-> greeting: message: Welcome yml
+## Spring Security
 
-방법1) Environment 사용
-
-- env.getProperty("greeting.message")
-
-방법2) @Value 사용
-
-- @Value("${greeting.message}")
+역할: Authentication(인증) + Authorization(권한)

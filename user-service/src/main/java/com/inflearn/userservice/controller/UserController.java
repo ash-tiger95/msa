@@ -14,7 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/")
+@RequestMapping("/user-service")
 public class UserController {
 
     private Environment env;
@@ -31,7 +31,7 @@ public class UserController {
 
     @GetMapping("/health_check")
     public String status(){
-        return "Working User Service";
+        return String.format("Working User Service on Port %s", env.getProperty("local.server.port"));
     }
 
     /*

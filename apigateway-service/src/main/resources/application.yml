@@ -23,7 +23,7 @@ spring:
       routes:
         - id: first-service
           # uri: http://localhost:8081/ # 2. 여기로 가라  (이동될 주소)
-          uri: lb://MY-FIRST-SERVICE # 2. 여기로 가라   (name으로 Forwarding)
+          uri: lb://MY-FIRST-SERVICE # 2. 여기로 가라   (name으로 Forwarding) (Eureka Server 인스턴스 이름)
           predicates: # 조건절
             - Path=/first-service/** # 1. first-service로 들어오면  (사용자가 입력한 조건 (http://localhost:8000/first-service/welcome))
           filters: # Filter/Custom Filter는 라우터 마다 등록 필요
@@ -44,3 +44,7 @@ spring:
                 baseMessage: Hi Logging Filter
                 preLogger: true
                 postLogger: true
+        - id: user-service
+          uri: lb://USER-SERVICE
+          predicates:
+            - Path=/user-service/**
