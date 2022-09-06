@@ -184,3 +184,17 @@ client <-> Spring Cloud Gateway <-> MicroService
 ## Spring Security
 
 역할: Authentication(인증) + Authorization(권한)
+
+# Cataologs-Service
+
+| 기능                     | URI(API Gateway 사용 시) | URI(API Gateway 미사용 시)      | HTTP Method |
+| :----------------------- | :----------------------- | :------------------------------ | :---------: |
+| 상품 목록 조회           | Catalogs Microservice    | /catalog-service/catalogs       |     GET     |
+| 사용자 별 상품 주문      | Order Microservice       | /order-service/{user_id}/orders |    POST     |
+| 사용자 별 주문 내역 조회 | Orders Microservice      | /order-service/{user_id}/orders |     GET     |
+
+## Tip
+
+jpd: hibernate: ddl-auto: create-drop
+
+> 초기데이터 저장 (SQL파일 이용해 바로 INSERT)
