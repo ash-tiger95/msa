@@ -3,12 +3,16 @@ package com.inflearn.userservice.service;
 import com.inflearn.userservice.dto.UserDto;
 import com.inflearn.userservice.jpa.UserEntity;
 import com.inflearn.userservice.repository.UserRepository;
+import com.inflearn.userservice.vo.ResponseOrder;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -38,5 +42,25 @@ public class UserServiceImpl implements UserService{
         UserDto returnUserDto = mapper.map(userEntity, UserDto.class);
 
         return returnUserDto;
+    }
+
+    @Override
+    public UserDto getUserByUserId(String userId) {
+        UserEntity userEntity = userRepository.findByUserId(userId);
+
+        if(userEntity == null){
+            throw new UsernameNotFoundException("User not found"); // Spring Security에서 사용되는 로그인 인증에 사용되는 exception (적절하지 않지만 그냥 씀)
+        }
+        UserDto userDto = new ModelMapper().map(userEntity, UserDto.class);
+
+        List<ResponseOrder> orders = new ArrayList<>();
+        userDto.setOrders(orders);
+
+        return userDto;
+    }
+
+    @Override
+    public Iterable<UserEntity> getUserByAll() {
+        return userRepository.findAll();
     }
 }
