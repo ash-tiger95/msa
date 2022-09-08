@@ -18,7 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping("/user-service")
+@RequestMapping("/") // API Gateway에서 RewritePath를 설정해줘서 /user-service/(?<segment>.*), /$\{segment}를 설정해주었다.
 public class UserController {
 
     private Environment env;

@@ -44,10 +44,34 @@ spring:
                 baseMessage: Hi Logging Filter
                 preLogger: true
                 postLogger: true
+#        - id: user-service
+#          uri: lb://USER-SERVICE
+#          predicates:
+#            - Path=/user-service/**
+        - id: user-service
+          uri: lb://USER-SERVICE
+          predicates:
+            - Path=/user-service/login
+            - Method=POST
+          filters:
+            - RemoveRequestHeader=Cookie # 헤더값 삭제: 포스트로 전달하는 값은 매번 새로운 값으로 인식하기 위함
+            - RewritePath=/user-service/(?<segment>.*), /$\{segment} # /user-service/(?<segment>.*)이렇게 들어오는 요청은 /$\{segment}로 URI를 바꿔서 전달한다는 의미
+        - id: user-service
+          uri: lb://USER-SERVICE
+          predicates:
+            - Path=/user-service/users
+            - Method=POST
+          filters:
+            - RemoveRequestHeader=Cookie
+            - RewritePath=/user-service/(?<segment>.*), /$\{segment}
         - id: user-service
           uri: lb://USER-SERVICE
           predicates:
             - Path=/user-service/**
+            - Method=GET
+          filters:
+            - RemoveRequestHeader=Cookie
+            - RewritePath=/user-service/(?<segment>.*), /$\{segment}
         - id: catalog-service
           uri: lb://CATALOG-SERVICE
           predicates:

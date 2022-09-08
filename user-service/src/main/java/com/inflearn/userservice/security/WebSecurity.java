@@ -34,7 +34,7 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
         http.authorizeRequests().antMatchers("/users/**")
                 .hasIpAddress("172.30.1.19") // IP검사
                 .and()
-                .addFilter(getAuthenticationFilter()); // 이 필터를 통과를 한 데이터에 한해서 권한을 부여하고 작업 진행하겠다는 의미
+                .addFilter(getAuthenticationFilter()); // 이 필터를 통과를 한 데이터에 한해서 권한을 부여하고 작업 진행하겠다는 의미 (우리가 만든 AuthenficationFilter())
 
         http.headers().frameOptions().disable(); // h2 DB 웹 페이지를 위함
     }
