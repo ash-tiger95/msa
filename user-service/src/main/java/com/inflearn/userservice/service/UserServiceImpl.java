@@ -81,4 +81,15 @@ public class UserServiceImpl implements UserService{
                 new ArrayList<>() // 권한을 추가하는 작업을 하는 곳
         ) ; // Spring Security의 User()
     }
+
+    @Override
+    public UserDto getUserDetailsByEmail(String email) {
+        UserEntity userEntity = userRepository.findByEmail(email);
+        if(userEntity == null){
+            throw new UsernameNotFoundException(email);
+        }
+        UserDto userDto = new ModelMapper().map(userEntity, UserDto.class);
+        return userDto;
+    }
+
 }

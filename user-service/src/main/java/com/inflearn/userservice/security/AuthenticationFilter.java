@@ -1,10 +1,16 @@
 package com.inflearn.userservice.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.inflearn.userservice.dto.UserDto;
+import com.inflearn.userservice.service.UserService;
 import com.inflearn.userservice.vo.RequestLogin;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.core.env.Environment;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import javax.servlet.FilterChain;
@@ -14,7 +20,21 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
 
+@Slf4j
 public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter { // 인증
+
+    private UserService userService;
+    private Environment env;
+
+    /*
+    AuthenticationFilter는 WebSecurity configure(HttpSecurity http)에서 getAuthenticationFilter()를 호출하면서 AuthenticationFilter 인스턴스를 생성한다.
+    인스턴스를 생성하면 AuthenticationFilter 클래스가 빈에 등록이 된다.
+     */
+    public AuthenticationFilter(AuthenticationManager authenticationManager, UserService userService, Environment env) {
+        super.setAuthenticationManager(authenticationManager);
+        this.userService = userService;
+        this.env = env;
+    }
 
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request,
@@ -42,5 +62,9 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
                                             HttpServletResponse response,
                                             FilterChain chain,
                                             Authentication authResult) throws IOException, ServletException {
+       String email = ((User)authResult.getPrincipal()).getUsername(); // Spring Security getUsername()는 우리가 입력하는 Email
+       UserDto userDetails = userService.getUserDetailsByEmail(email);
+
+
     }
 }

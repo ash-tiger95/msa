@@ -36,3 +36,7 @@ eureka:
 
 greeting:
   message: Let's use yml args
+
+logging:
+  level:
+    com.inflearn.userservice: DEBUG

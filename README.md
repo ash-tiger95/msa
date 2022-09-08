@@ -194,6 +194,14 @@ client <-> Spring Cloud Gateway <-> MicroService
 
 역할: Authentication(인증) + Authorization(권한)
 
+### 작동순서
+
+1. API Gateway Routes 수정
+2. @Configuration이 먼저 스프링부트 빈에 등록된다.
+   > 우리서비스에서는 WebSecurity 클래스가 먼저 빈에 등록됨
+3. 로그인을 시도했을 때 제일 먼저 실행되는 AutenticationFilter의 attemptAuthentication 함수
+4. AutenticationFilter의 successfulAuthentication
+
 ---
 
 ---

@@ -40,8 +40,15 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
     }
 
     private AuthenticationFilter getAuthenticationFilter() throws Exception{ // 인증처리
-        AuthenticationFilter authenticationFilter = new AuthenticationFilter();
-        authenticationFilter.setAuthenticationManager(authenticationManager()); // 인증처리를 하기 위해서 Spring Security에서 가져온 메니저로 인증처리
+        AuthenticationFilter authenticationFilter = new AuthenticationFilter(authenticationManager(), userService, env); // 인스턴스 생성하면서 빈 전달
+
+        /*
+            AuthenticationFilter authenticationFilter = new AuthenticationFilter();일 때는 아래 코드가 필요햤는데,
+            AuthenticationFilter authenticationFilter = new AuthenticationFilter(authenticationManager(), userService, env);에서
+                authenticationManager()를 호출하면서 아래코드가 필요없어졌다.
+         */
+
+        // authenticationFilter.setAuthenticationManager(authenticationManager()); // 인증처리를 하기 위해서 Spring Security에서 가져온 메니저로 인증처리
 
         return authenticationFilter;
     }
