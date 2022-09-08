@@ -40,3 +40,8 @@ greeting:
 logging:
   level:
     com.inflearn.userservice: DEBUG
+
+# 토큰 관련 설정
+token:
+  expiration_time: 86400000 # 24 *60 * 60 * 1000 밀리세컨드 = 하루 시간
+  secret: user_token

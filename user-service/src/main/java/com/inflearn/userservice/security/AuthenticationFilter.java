@@ -4,6 +4,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.inflearn.userservice.dto.UserDto;
 import com.inflearn.userservice.service.UserService;
 import com.inflearn.userservice.vo.RequestLogin;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.env.Environment;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -19,6 +21,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 
 @Slf4j
 public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter { // 인증
@@ -65,6 +68,14 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
        String email = ((User)authResult.getPrincipal()).getUsername(); // Spring Security getUsername()는 우리가 입력하는 Email
        UserDto userDetails = userService.getUserDetailsByEmail(email);
 
+       // JWT 만들기
+        String token = Jwts.builder()
+                .setSubject(userDetails.getUserId())
+                .setExpiration(new Date(System.currentTimeMillis() + Long.parseLong(env.getProperty("token.expiration_time")))) // 현재시간 + 하루 = 내일 이 시간까지
+                .signWith(SignatureAlgorithm.HS256, env.getProperty("token.secret")) // 암호화
+                .compact();
 
+        response.addHeader("token",token);
+        response.addHeader("userId",userDetails.getUserId());
     }
 }
