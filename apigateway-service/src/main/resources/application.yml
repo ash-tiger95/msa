@@ -12,6 +12,9 @@ eureka:
 spring:
   application:
     name: apigateway-service
+  config:
+    import:
+      - classpath:/bootstrap.yml # springboot 2.7.x 이상에서 bootstrap.yml을 읽도록 설정
   cloud:
     gateway:
       default-filters: # Global Filter는 한번에 선언
@@ -64,6 +67,14 @@ spring:
           filters:
             - RemoveRequestHeader=Cookie
             - RewritePath=/user-service/(?<segment>.*), /$\{segment}
+        - id: user-service # Actuator 처리
+          uri: lb://USER-SERVICE
+          predicates:
+            - Path=/user-service/actuator/**
+            - Method=GET,POST
+          filters:
+            - RemoveRequestHeader=Cookie
+            - RewritePath=/user-service/(?<segment>.*), /$\{segment}
         - id: user-service
           uri: lb://USER-SERVICE
           predicates:
@@ -82,5 +93,12 @@ spring:
           predicates:
             - Path=/order-service/**
 
-token:
-  secret: user_token
+#token:
+#  secret: user_token
+
+# Actuator
+management:
+  endpoints:
+    web:
+      exposure:
+        include: refresh, health, beans, httptrace
