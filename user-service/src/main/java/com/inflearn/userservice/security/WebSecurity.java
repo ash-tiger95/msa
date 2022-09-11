@@ -31,6 +31,7 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
         // http.authorizeRequests().antMatchers("/users/**").permitAll(); // prefix가 붙은 URI에 대해서는 인증작업이 필요없음을 의미
 
         // 4. 인증작업
+        http.authorizeRequests().antMatchers("/actuator/**").permitAll();
         http.authorizeRequests().antMatchers("/users/**")
                 .hasIpAddress("172.30.1.19") // IP검사
                 .and()

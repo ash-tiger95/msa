@@ -1,0 +1,6 @@
+# SpringBoot 2.4.x 이상에서 bootstrap이 레거시가 되어 application.yml에서 config를 설정해야한다.
+spring:
+  cloud:
+    config:
+      uri: http://127.0.0.1:8888
+      name: ecommerce # 파일 명 (우리의 파일명은 .../config/ecommerce.yml)

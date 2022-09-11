@@ -4,6 +4,11 @@ server:
 spring:
   application:
     name: user-service
+  config:
+#    name: ecommerce # 파일명
+#    import: "optional:configserver:http://localhost:8888"
+    import:
+      - classpath:/bootstrap.yml # springboot 2.7.x 이상에서 bootstrap.yml을 읽도록 설정
   h2:
     console:
       enabled: true
@@ -41,7 +46,14 @@ logging:
   level:
     com.inflearn.userservice: DEBUG
 
-# 토큰 관련 설정
-token:
-  expiration_time: 86400000 # 24 *60 * 60 * 1000 밀리세컨드 = 하루 시간
-  secret: user_token
+# 토큰 관련 설정 -> Config Server에서 사용
+#token:
+#  expiration_time: 86400000 # 24 *60 * 60 * 1000 밀리세컨드 = 하루 시간
+#  secret: user_token
+
+# Actuator
+management:
+  endpoints:
+    web:
+      exposure:
+        include: refresh, health, beans
