@@ -202,6 +202,18 @@ client <-> Spring Cloud Gateway <-> MicroService
 3. 로그인을 시도했을 때 제일 먼저 실행되는 AutenticationFilter의 attemptAuthentication 함수
 4. AutenticationFilter의 successfulAuthentication
 
+# Spring Cloud Config (Configuration Service)
+
+application.yml(구성정보) 내용이 바뀌면 새로 빌드해야되는 번거로움 해소
+
+- 분산 시스템에서 서버, 클라이언트 구성에 필요한 설정 정보(application.yml)를 외부 시스템에서 관리
+
+- 하나의 중앙화 된 저장소에서 구성요소 관리 기능
+
+- 각 서비스를 다시 빌드하지 않고, 바로 적용 가능
+
+- 애플리케이션 배포 파이프라인을 통해 DEV-UAT-PROD 환경에 맞는 구성 정보 사용
+ 
 ---
 
 ---
