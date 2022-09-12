@@ -4,8 +4,20 @@ server:
 spring:
   application:
     name: config-service
+  profiles: # 방법3) 사용 시 native 추가
+    active: native
   cloud:
     config:
       server:
+        # 방법3) Native File Repository(파일 시스템)에 저장 => URL: localhost:8888/ecommerce/native
+        native:
+          search-locations: file:///Users/jugia/OneDrive/바탕 화면/GITHUB/msa/.config
         git:
-          uri: file:///Users/jugia/OneDrive/바탕 화면/GITHUB/msa/.config
+          # 방법1) Local git repository에 저장
+#          uri: file:///Users/jugia/OneDrive/바탕 화면/GITHUB/config
+
+          # 방법2) Remote git Repository에 저장 => URL: localhost:8888/ecommerce/default(dev, prod)
+          uri: https://github.com/ash-tiger95/config
+          # git이 private일 경우 아래 작성
+#          username:
+#          password:

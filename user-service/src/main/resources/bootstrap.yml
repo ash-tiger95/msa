@@ -4,3 +4,5 @@ spring:
     config:
       uri: http://127.0.0.1:8888 # Config Server Port
       name: ecommerce # 파일 명 (우리의 파일명은 .../config/ecommerce.yml)
+  profiles:
+    active: dev
