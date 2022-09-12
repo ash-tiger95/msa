@@ -3,6 +3,7 @@ spring:
   cloud:
     config:
       uri: http://127.0.0.1:8888 # Config Server Port
-      name: ecommerce # 파일 명 (우리의 파일명은 .../config/ecommerce.yml)
-  profiles:
-    active: dev
+#      name: ecommerce # 파일 명 (우리의 파일명은 .../config/ecommerce.yml)
+      name: config-service  # 서비스 명을 name으로 설정하면 해당 경로에서 application.yml을 읽는다.
+#  profiles:
+#    active: dev

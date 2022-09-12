@@ -4,6 +4,11 @@ server:
 spring:
   application:
     name: config-service
+  rabbitmq:
+    host: 127.0.0.1
+    port: 5672
+    username: guest
+    password: guest
   profiles: # 방법3) 사용 시 native 추가
     active: native
   cloud:
@@ -21,3 +26,8 @@ spring:
           # git이 private일 경우 아래 작성
 #          username:
 #          password:
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health, busrefresh
