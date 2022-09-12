@@ -8,4 +8,4 @@ spring:
     config:
       server:
         git:
-          uri: file:///Users/jugia/OneDrive/바탕 화면/GITHUB/config
+          uri: file:///Users/jugia/OneDrive/바탕 화면/GITHUB/msa/.config
