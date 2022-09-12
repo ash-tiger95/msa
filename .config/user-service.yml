@@ -1,0 +1,14 @@
+spring:
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:tcp://localhost/~/H2/msa/testdb # h2 console 위치
+    username: "{cipher}ec9a08acd07cfd7ce26e2c8a6bf391b6d6353650b5675fe952e0aa55b30281ad" # 암호회된 후 ({cipher}가 붙으면 암호화된 문자라고 인식, localhost:8888/user-service에 들어가면 복호화된 문자로 보인다.)
+    password:
+
+# 토큰 관련 설정
+token:
+  expiration_time: 86400000 # 24 *60 * 60 * 1000 밀리세컨드 = 하루 시간
+  secret: user_token_native_default
+
+gateway:
+  ip: 172.30.1.87
