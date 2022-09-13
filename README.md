@@ -213,12 +213,24 @@ application.yml(구성정보) 내용이 바뀌면 새로 빌드해야되는 번�
 - 각 서비스를 다시 빌드하지 않고, 바로 적용 가능
 
 - 애플리케이션 배포 파이프라인을 통해 DEV-UAT-PROD 환경에 맞는 구성 정보 사용
- 
----
 
 ---
 
 ---
+
+---
+
+## keytool
+
+Private Key 만들기
+
+> keytool -genkeypair -alias apiEncryptionKey -keyalg RSA -dname "CN=Ahn, OU=API Development, o=test.co.kr, L=Seoul, C=KR" -keypass "test1234" -keystore apiEncryptionKey.jks -storepass "test1234"
+
+Public Key 추출하기
+
+> keytool -export -alias apiEncryptionKey -keystore apiEncryptionKey.jks -rfc -file trustServer.cer
+
+> keytool -import -alias trustServer -file trustServer.cer -keystore publicKey.jks
 
 ## Tip
 
