@@ -3,8 +3,10 @@ package com.inflearn.userservice;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
+import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.web.client.RestTemplate;
 
 @SpringBootApplication
 @EnableDiscoveryClient
@@ -23,5 +25,17 @@ public class UserServiceApplication {
 	public BCryptPasswordEncoder passwordEncoder(){
 		return new BCryptPasswordEncoder();
 	}
+
+	@Bean
+	@LoadBalanced
+	public RestTemplate getRestTemplate(){
+		return new RestTemplate();
+	}
+	/*
+	@LoadBalanced를 사용하면
+	http://127.0.0.1:8000/order-service/%s/orders 이렇게 요청하던 것을
+	http://order-service/order-service/%s/orders
+	(http://MS name/URI) 형태로 요청할 수 있다.
+	 */
 
 }

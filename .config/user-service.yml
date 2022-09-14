@@ -13,3 +13,6 @@ token:
 
 gateway:
   ip: 172.30.1.87
+
+order_service:
+  url: http://ORDER-SERVICE/order-service/%s/orders

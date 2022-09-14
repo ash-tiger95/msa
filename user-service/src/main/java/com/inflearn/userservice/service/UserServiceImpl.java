@@ -7,11 +7,16 @@ import com.inflearn.userservice.vo.ResponseOrder;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.core.env.Environment;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,11 +27,15 @@ public class UserServiceImpl implements UserService{
 
     UserRepository userRepository;
     BCryptPasswordEncoder passwordEncoder;
+    Environment env;
+    RestTemplate restTemplate;
 
     @Autowired
-    public UserServiceImpl(UserRepository userRepository,BCryptPasswordEncoder passwordEncoder){ // 생성자가 스프링부트 컨텍스트에서 만들어지면서 빈을 등록하고 메모리에 올린다.
+    public UserServiceImpl(UserRepository userRepository,BCryptPasswordEncoder passwordEncoder, Environment env, RestTemplate restTemplate){ // 생성자가 스프링부트 컨텍스트에서 만들어지면서 빈을 등록하고 메모리에 올린다.
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
+        this.restTemplate = restTemplate;
+        this.env = env;
     }
 
     @Override
@@ -55,8 +64,15 @@ public class UserServiceImpl implements UserService{
         }
         UserDto userDto = new ModelMapper().map(userEntity, UserDto.class);
 
-        List<ResponseOrder> orders = new ArrayList<>();
-        userDto.setOrders(orders);
+        /* Using as rest template */
+        String orderUrl = String.format(env.getProperty("order_service.url"), userId); // String.format을 하는 이유는 %s에 userId를 넣기 위함 (http://127.0.0.1:8000/order-service/%s/orders)
+        ResponseEntity<List<ResponseOrder>> orderListResponse = restTemplate.exchange(orderUrl, HttpMethod.GET,
+                null, // 파라미터 (필요없음, 우리가 요청할 때 파라미터 포함해서 보내니깐)
+                new ParameterizedTypeReference<List<ResponseOrder>>() { // 어떤 형식으로 받을 건지
+        });
+
+        List<ResponseOrder> orderList = orderListResponse.getBody();
+        userDto.setOrders(orderList);
 
         return userDto;
     }
