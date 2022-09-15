@@ -1,5 +1,6 @@
 package com.inflearn.userservice.service;
 
+import com.inflearn.userservice.client.OrderServiceClient;
 import com.inflearn.userservice.dto.UserDto;
 import com.inflearn.userservice.jpa.UserEntity;
 import com.inflearn.userservice.repository.UserRepository;
@@ -30,12 +31,16 @@ public class UserServiceImpl implements UserService{
     Environment env;
     RestTemplate restTemplate;
 
+    OrderServiceClient orderServiceClient;
+
     @Autowired
-    public UserServiceImpl(UserRepository userRepository,BCryptPasswordEncoder passwordEncoder, Environment env, RestTemplate restTemplate){ // 생성자가 스프링부트 컨텍스트에서 만들어지면서 빈을 등록하고 메모리에 올린다.
+    public UserServiceImpl(UserRepository userRepository,BCryptPasswordEncoder passwordEncoder,
+                           Environment env, RestTemplate restTemplate, OrderServiceClient orderServiceClient){ // 생성자가 스프링부트 컨텍스트에서 만들어지면서 빈을 등록하고 메모리에 올린다.
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.restTemplate = restTemplate;
         this.env = env;
+        this.orderServiceClient = orderServiceClient;
     }
 
     @Override
@@ -65,6 +70,7 @@ public class UserServiceImpl implements UserService{
         UserDto userDto = new ModelMapper().map(userEntity, UserDto.class);
 
         /* Using as rest template */
+        /*
         String orderUrl = String.format(env.getProperty("order_service.url"), userId); // String.format을 하는 이유는 %s에 userId를 넣기 위함 (http://127.0.0.1:8000/order-service/%s/orders)
         ResponseEntity<List<ResponseOrder>> orderListResponse = restTemplate.exchange(orderUrl, HttpMethod.GET,
                 null, // 파라미터 (필요없음, 우리가 요청할 때 파라미터 포함해서 보내니깐)
@@ -72,6 +78,11 @@ public class UserServiceImpl implements UserService{
         });
 
         List<ResponseOrder> orderList = orderListResponse.getBody();
+         */
+
+        /* Feign Client */
+        List<ResponseOrder> orderList = orderServiceClient.getOrders(userId);
+
         userDto.setOrders(orderList);
 
         return userDto;
