@@ -1,5 +1,6 @@
 package com.inflearn.userservice;
 
+import com.inflearn.userservice.error.FeignErrorDecoder;
 import feign.Logger;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -46,4 +47,8 @@ public class UserServiceApplication {
 		return Logger.Level.FULL;
 	}
 
+	@Bean
+	public FeignErrorDecoder getFeignErrorDecoder(){
+		return new FeignErrorDecoder();
+	}
 }

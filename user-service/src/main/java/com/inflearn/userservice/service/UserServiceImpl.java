@@ -2,6 +2,7 @@ package com.inflearn.userservice.service;
 
 import com.inflearn.userservice.client.OrderServiceClient;
 import com.inflearn.userservice.dto.UserDto;
+import com.inflearn.userservice.error.FeignErrorDecoder;
 import com.inflearn.userservice.jpa.UserEntity;
 import com.inflearn.userservice.repository.UserRepository;
 import com.inflearn.userservice.vo.ResponseOrder;
@@ -84,13 +85,17 @@ public class UserServiceImpl implements UserService{
          */
 
         /* Feign Client + Exception Handling*/
+        /*
         List<ResponseOrder> orderList =null;
         try {
             orderList = orderServiceClient.getOrders(userId);
         }catch (FeignException ex){
             log.error(ex.getMessage());
         }
+        */
 
+        /* FeignErrorDecoder */
+        List<ResponseOrder> orderList = orderServiceClient.getOrders(userId);
         userDto.setOrders(orderList);
 
         return userDto;
