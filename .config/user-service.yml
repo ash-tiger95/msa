@@ -1,7 +1,8 @@
 spring:
   datasource:
     driver-class-name: org.h2.Driver
-    url: jdbc:h2:tcp://localhost/~/H2/msa/testdb # h2 console 위치
+    # url: jdbc:h2:tcp://localhost/~/H2/msa/testdb # (모든 서비스/인스턴스가 공용으로 사용)h2 console 위치
+    url: jdbc:h2:mem:testdb;MODE=MySQL # (인스턴스 각각의 DB 사용) H2 database 2.x.x 부터는  ;MODE=MySQL 를 붙여줘야 @generatedValue로 null값이 안들어간다.
     # username: "{cipher}ec9a08acd07cfd7ce26e2c8a6bf391b6d6353650b5675fe952e0aa55b30281ad" # 대칭키: 암호회된 후 ({cipher}가 붙으면 암호화된 문자라고 인식, localhost:8888/user-service에 들어가면 복호화된 문자로 보인다.)
     username: "{cipher}AQBACDfz0dw7+2CfpLnCtnDp50aoOvlSxnZ+jX43GKlvRnX1xZws1bgywycwkZXrXnXSChZfJ4A7o9tAFF9WgeMIkQhNUrtnczGlKs+yafiFaKcltM13HMbkCP8NNPNV6gLf263JkFJxRR8XYt9+9vl7+stla0w6tvqUSxq86buhyxT7gI99Ef7DBkyj6x12A5TDK1tCJ1YV1vYAeHaRc5qwU9kaXVMcFzcOa1XaN21odFtPIflmr8xPR0uielFux+iR71WUnBT6lgvkL3jGW306COyL/sr/oSEUZ2lovUwiqTrMsOST1Ql8P0z6NxliYVrZW59CpZphm2lR5nEZqCKPl1Ihg0a955lsk6i/fb6OGyijpehKYy5OeeJi75y/kEA=" # 비대칭키
     password:
