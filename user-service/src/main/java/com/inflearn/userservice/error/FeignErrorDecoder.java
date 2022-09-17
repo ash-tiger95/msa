@@ -8,7 +8,15 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.web.server.ResponseStatusException;
 
+@Component
 public class FeignErrorDecoder implements ErrorDecoder {
+
+    Environment env;
+
+    @Autowired
+    public FeignErrorDecoder(Environment env){
+        this.env = env;
+    }
 
     @Override
     public Exception decode(String methodKey, Response response) {
@@ -17,7 +25,7 @@ public class FeignErrorDecoder implements ErrorDecoder {
                 break;
             case 404:
                 if(methodKey.contains("getOrders")){ // getOrders한해서만 작동
-                    return new ResponseStatusException(HttpStatus.valueOf(response.status()), "User's orders is Empty");
+                    return new ResponseStatusException(HttpStatus.valueOf(response.status()), env.getProperty("order_service.exception.order_is_empty"));
                 }
                 break;
             default:

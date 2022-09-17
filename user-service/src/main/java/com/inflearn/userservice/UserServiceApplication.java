@@ -47,8 +47,9 @@ public class UserServiceApplication {
 		return Logger.Level.FULL;
 	}
 
-	@Bean
-	public FeignErrorDecoder getFeignErrorDecoder(){
-		return new FeignErrorDecoder();
-	}
+	/* config파일에서 메시지 작성하면서 @Component 등록 및 Environment 추가 */
+//	@Bean
+//	public FeignErrorDecoder getFeignErrorDecoder(){
+//		return new FeignErrorDecoder();
+//	}
 }
