@@ -107,3 +107,4 @@ management:
     web:
       exposure:
         include: refresh, health, beans, httptrace, busrefresh
+

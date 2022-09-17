@@ -1,5 +1,6 @@
 package com.inflearn.userservice;
 
+import feign.Logger;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
@@ -39,5 +40,10 @@ public class UserServiceApplication {
 	http://order-service/order-service/%s/orders
 	(http://MS name/URI) 형태로 요청할 수 있다.
 	 */
+
+	@Bean
+	public Logger.Level feignLoggerLevel(){ // Feign Client 호출 시 로그 확인 가능
+		return Logger.Level.FULL;
+	}
 
 }

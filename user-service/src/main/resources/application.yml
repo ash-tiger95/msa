@@ -49,7 +49,7 @@ greeting:
 
 logging:
   level:
-    com.inflearn.userservice: DEBUG
+    com.inflearn.userservice.client: DEBUG
 
 # 토큰 관련 설정 -> Config Server에서 사용
 #token:
