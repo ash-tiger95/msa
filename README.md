@@ -237,3 +237,85 @@ Public Key 추출하기
 jpd: hibernate: ddl-auto: create-drop
 
 > 초기데이터 저장 (SQL파일 이용해 바로 INSERT)
+
+<br/>
+<br/>
+
+# Apache Kafka
+
+- Apache Software Foundation의 Scaler 언어로 된 오픈 소스 메시지 브로커 프로젝트
+  - 메시지 브로커: 리소스에서 메시지를 전달하는 서버
+  - 메시지: Text, Json, xml, Java에서는 object 등
+- 링크드인(Liked-in)에서 개발, 2011년 오픈 소스화
+  - 2014년 11월 링크등니에서 Kafka를 개발하던 엔지니어들이 Kafka 개발에 집중하기 위해 Confluent라는 회사 설립
+- 실시간 데이터 피드를 관리하기 위해 통일된 높은 처리량, 낮은 지연 시간을 지닌 플랫폼 제공
+
+## 탄생 배경
+
+- 모든 시스템으로 데이터를 실시간으로 전송하여 처리할 수 있는 시스템
+- 데이터가 많아지더라도 확장이 용이한 시스템
+
+## Kafka 데이터 처리 흐름
+
+MySQL, Oracle, mongoDB, App, Storage => Kafka => Hadoop, Search Engine, Monitoring, Email
+
+- Producer/Consumer 분리
+- 메시지를 여러 Consumer에게 허용
+- 높은 처리량을 위한 메시지 최적화
+- Scale-out 가능
+- Eco System
+
+## Kafka Broker
+
+- 실행 된 Kafka 애플리케이션 서버
+- 3대 이상의 Broker Cluseter 구성 권장
+- Zookeeper 연동
+  - 역할: 메타데이터(Broker ID, Controller ID 등) 저장
+  - Controller 정보 저장
+- n개 Broker 중 1대는 Controller 기능 수행
+  - Controller 역할
+    - 각 Broker에게 담당 파티션 할당 수행
+    - Broker 정상 동작 모니터링 관리
+
+## Ecosystem (사용 시나리오) - 1. Kafka Client
+
+- Kafka와 데이터를 주고받기 위해 사용하는 자바 라이브러리
+- Producer, Consumer, Admin, Stream 등 Kafka 관련 API 제공
+- 다양한 3rd party library 존재
+- Kafka Cluster <-> Kafka-client Application
+
+## 작동원리
+
+- 메시지는 토픽으로 전달된다.
+- 콘솔 파일을 기동할 때 토픽 이름을 명시한다.
+- 전달하는 데이터는 토픽에 저장되고 그 데이터는 토픽에 관심있다는 Consumer가 받아간다.
+
+### Zookeeper 및 Kafka 서버 구동
+
+> .\bin\windows\zookeeper-server-start.bat .\config\zookeeper.properties
+
+> .\bin\windows\kafka-server-start.bat .\config\server.properties
+
+### Topic 생성
+
+> .\bin\windows\kafka-topics.bat --create --topic quickstart-events --bootstrap-server localhost:9092 \ --partitions 1
+
+### Topic 목록 확인
+
+> .\bin\windows\kafka-topics.bat --bootstrap-server localhost:9092 --list
+
+### Topic 정보 확인
+
+> .\bin\windows\kafka-topics.bat --describe --topic quickstart-events --bootstrap-server localhost:9092
+
+### 메시지 생산 (Producer)
+
+> .\bin\windows\kafka-console-producer.bat --broker-list localhost:9092 --topic quickstart-events
+
+### 메시지 소비 (Consumer)
+
+> .\bin\windows\kafka-console-consumer.bat --bootstrap-server localhost:9092 --topic quickstart-events \ --from-beginning
+
+# Ecosystem 2. Kafka Connect
+
+- Kafka Connect를 통해 Data를 Import/Export 가능
