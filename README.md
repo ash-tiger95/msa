@@ -332,4 +332,6 @@ jpd: hibernate: ddl-auto: create-drop
 
 > 초기데이터 저장 (SQL파일 이용해 바로 INSERT)
 
-pay;oad: 실제로 전달되는 데이터
+payload: 실제로 전달되는 데이터
+
+{"schema":{"type":"struct","fields":[{"type":"int32","optional":false,"field":"id"},{"type":"string","optional":true,"field":"user_id"},{"type":"string","optional":true,"field":"pwd"},{"type":"string","optional":true,"field":"name"},{"type":"int64","optional":true,"name":"org.apache.kafka.connect.data.Timestamp","version":1,"field":"created_at"}],"optional":false,"name":"users"},"payload":{"id":6,"user_id":"admin2","pwd":"admin2","name":"super user2","created_at":1666789706000}}
