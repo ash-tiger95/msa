@@ -36,7 +36,9 @@ spring:
 
 eureka:
   instance:
+    # prefer-ip-address: true
     # instance-id: ${spring.cloud.client.hostname}:${spring.application.instance_id:${random.value}} # 랜덤포트로 실행되면 인스턴스가 하나밖에 안보이는데, 인스턴스별로 따로 보기 위함 (IP)
+    hostname: localhost
     instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}} # Application name
   client:
     register-with-eureks: true
