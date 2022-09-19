@@ -13,7 +13,7 @@ spring:
       path: /h2-console
   datasource:
     driver-class-name: org.h2.Driver
-    url: jdbc:h2:tcp://localhost/~/H2/msa/testdb
+    url: jdbc:h2:mem:testdb
     username: sa
     password:
   jpa:
@@ -28,6 +28,7 @@ spring:
 
 eureka:
   instance:
+    prefer-ip-address: true
     instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
   client:
     register-with-eureks: true
