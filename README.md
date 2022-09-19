@@ -232,12 +232,6 @@ Public Key 추출하기
 
 > keytool -import -alias trustServer -file trustServer.cer -keystore publicKey.jks
 
-## Tip
-
-jpd: hibernate: ddl-auto: create-drop
-
-> 초기데이터 저장 (SQL파일 이용해 바로 INSERT)
-
 <br/>
 <br/>
 
@@ -316,6 +310,26 @@ MySQL, Oracle, mongoDB, App, Storage => Kafka => Hadoop, Search Engine, Monitori
 
 > .\bin\windows\kafka-console-consumer.bat --bootstrap-server localhost:9092 --topic quickstart-events \ --from-beginning
 
+> .\bin\windows\kafka-console-consumer.bat --bootstrap-server localhost:9092 --topic my_topic_users \ --from-beginning
+
 # Ecosystem 2. Kafka Connect
 
 - Kafka Connect를 통해 Data를 Import/Export 가능
+- 코드없이 Configuration으로 데이터를 이동
+- Standalone mode, Distribution mode 지원
+  - RESTful API 통해 지원
+  - Stream 또는 Batch 형태로 데이터 전송 가능
+  - 커스텀 Connector를 통한 다양한 Plugin 제공 (File, S3, Hive, Myql, etc ...)
+- Source System (Hive, jdbc, ...) -> Kafka Connect Source -> Kafka Cluster -> Kafka Connect Sink -> Target System (S3, ...)
+
+## Kafka Connect 실행
+
+> .\bin\windows\connect-distributed.bat .\etc\kafka\connect-distributed.properties
+
+# Tip
+
+jpd: hibernate: ddl-auto: create-drop
+
+> 초기데이터 저장 (SQL파일 이용해 바로 INSERT)
+
+pay;oad: 실제로 전달되는 데이터
