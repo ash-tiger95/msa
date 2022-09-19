@@ -2,6 +2,7 @@ package com.inflearn.orderservice.controller;
 
 import com.inflearn.orderservice.dto.OrderDto;
 import com.inflearn.orderservice.entity.OrderEntity;
+import com.inflearn.orderservice.messagequeue.KafkaProducer;
 import com.inflearn.orderservice.service.OrderService;
 import com.inflearn.orderservice.vo.RequestOrder;
 import com.inflearn.orderservice.vo.ResponseOrder;
@@ -22,12 +23,14 @@ public class OrderController {
 
     Environment env;
     OrderService orderService;
+    KafkaProducer kafkaProducer;
 
     @Autowired
 
-    public OrderController(Environment env, OrderService orderService) {
+    public OrderController(Environment env, OrderService orderService, KafkaProducer kafkaProducer) {
         this.env = env;
         this.orderService = orderService;
+        this.kafkaProducer = kafkaProducer;
     }
 
     @GetMapping("/health_check")
@@ -41,11 +44,15 @@ public class OrderController {
         ModelMapper mapper = new ModelMapper();
         mapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
 
+        /* JPA */
         OrderDto orderDto = mapper.map(orderDetails, OrderDto.class);
         orderDto.setUserId(userId);
         OrderDto createdOrder = orderService.createOrder(orderDto);
 
         ResponseOrder responseOrder = mapper.map(createdOrder, ResponseOrder.class);
+
+        /* Send to Kafka */
+        kafkaProducer.send("example-catalog-topic", orderDto);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(responseOrder);
     }
