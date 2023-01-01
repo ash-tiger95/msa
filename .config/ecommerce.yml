@@ -1,7 +1,0 @@
-# 토큰 관련 설정
-token:
-  expiration_time: 86400000 # 24 *60 * 60 * 1000 밀리세컨드 = 하루 시간
-  secret: "{cipher}AQAIGJpgB7OPkT2iz2yfD5tX2lyzWOc9fdLYv455BE8vKvLRcy9YBPa+Tkd79uAaZsSvCbEqhst/hg5kjQ0OzjnWa+GJevWCprG0JUEPLKNHnbobTuYkVVmgq97H94TP1dRx8D1PUiEgNlghDf+Bip5cfUtjPGRtizFmhL+MSvm/gWCyijHqpU21BP0Yxh2lfDVzugFdvVber+5KTs33H82mFOJOKqW4EOZyT6LWw0b+gN3alMul7q1JbsCUZnp324JlRSVhiy92mBL6jbt/HPV1iYD6o75wfH3EIkOzEcw5qj+wpRwO5EeAvysITLpCMpql5OX2aVjcZUv6z/hDX/fBClnLMt9r0zVurbO9BsEnSJ8FLK9WcBcWl61/Sgh264+Nk/oDtfmun2JtJGxnhHNi" # 비대칭키
-
-gateway:
-  ip: 172.30.1.87

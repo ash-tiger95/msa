@@ -1,6 +1,0 @@
-encrypt:
-  # key: abcdefghijklmnopqrstuvwxyz1234567890 # 대칭키 (한 줄)
-  key-store: # 비대칭키 (아래 모두)
-    location: file:///${user.home}/OneDrive/바탕 화면/GITHUB/msa/.keystore/apiEncryptionKey.jks
-    password: test1234
-    alias: apiEncryptionKey
