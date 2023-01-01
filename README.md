@@ -339,3 +339,5 @@ payload: 실제로 전달되는 데이터
 - Kafka 메시지를 토픽에 전달해주는 역할: Source Connect
 
 - 토픽데이터를 가져가서 사용하는 역할: Sink Connect
+
+test
